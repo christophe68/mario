@@ -14,8 +14,13 @@ public class Scene extends JPanel {
 	private Image imgFond1;
 	private Image imgFond2;
 	
-	private ImageIcon icoMario; // Stockage de l'image de Mario code provisoire
-	private Image imgMario; //code provisoire
+	private ImageIcon icoChateau1;
+	private Image imgChateau1;
+	private ImageIcon icoDepart;
+	private Image imgDepart;
+	
+	private ImageIcon icoMario; // Stockage de l'image de Mario
+	private Image imgMario; //
 	
 	private int xFond1; // Abcisse coin superieur gauche de notre fenetre
 	private int xFond2;
@@ -36,6 +41,11 @@ public class Scene extends JPanel {
 		this.imgFond2 = this.icoFond.getImage(); // Associe notre icoFond a notre imageIcon
 		icoMario = new ImageIcon(getClass().getResource("/images/marioMarcheDroite.png"));
 		this.imgMario = this.icoMario.getImage(); // Associe notre icoMario à notre imageIcon 
+		
+		this.icoChateau1 = new ImageIcon(getClass().getResource("/images/chateau1.png"));
+		this.imgChateau1 = this.icoChateau1.getImage(); // Associe icoChateau à ImageIcon
+		this.icoDepart = new ImageIcon(getClass().getResource("/images/depart.png"));
+		this.imgDepart = this.icoDepart.getImage(); // Associe icoDepart à ImageIcon
 		
 		this.setFocusable(true); // Ecoute l'ecran
 		this.requestFocusInWindow(); // Recupere le focus
@@ -89,6 +99,8 @@ public class Scene extends JPanel {
 		g2.drawImage(this.imgFond2, this.xFond2, 0, null); // Dessin de l'image de fond2, 750 en X, 0 en Y, 
 
 		g2.drawImage(imgMario, 400, 245, null); // Dessin de mario qui sera placé en dessous en premier, 300 c'est le milieu de l'ecran, 245 c'est la hauteur de mario
+		g2.drawImage(imgChateau1, 10, 95, null); // Dessin du Chateau en x et y
+		g2.drawImage(imgDepart, 220, 234, null); // Dessin du Depart en x et y
 	}
 
 }
