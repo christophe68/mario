@@ -63,9 +63,18 @@ public class Scene extends JPanel {
 	public void deplacementFond(){
 		
 		
-		
 		this.xFond1 = this.xFond1 - this.dx; // Mets à jour la position du fond	
 		this.xFond2 = this.xFond2 - this.dx; // Deplace fond2 en meme temps que fond1
+	
+		if(this.xFond1 == -800) {
+			this.xFond1 = 800; // Quand xFond1 est à -800 il faut mettre a la suite une autre image
+		}else if(this.xFond2 == -800) {
+			this.xFond2 = 800;
+		}else if(this.xFond1 == 800) {
+			this.xFond1 = -800;
+		}else if(this.xFond2 == 800) {
+			this.xFond2 = -800; // Permanence complete vers la droite et vers la gauche du fond
+		}
 	}
 	
 
