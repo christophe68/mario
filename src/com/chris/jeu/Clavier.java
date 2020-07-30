@@ -9,6 +9,11 @@ public class Clavier implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		
 		if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			if(Main.scene.getxPos() == -1) {
+				Main.scene.setxPos(0);
+				Main.scene.setxFond1(-50);
+				Main.scene.setxFond2(750); // Si on est completement collé a gauche on execute de nouveau le fond
+			}
 			Main.scene.setDx(1); // Mario se deplace a droite
 		}else if(e.getKeyCode() == KeyEvent.VK_LEFT) {
 			Main.scene.setDx(-1); // Mario se deplace à gauche

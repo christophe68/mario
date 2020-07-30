@@ -25,6 +25,7 @@ public class Scene extends JPanel {
 	private int xFond1; // Abcisse coin superieur gauche de notre fenetre
 	private int xFond2;
 	private int dx; // Deplace l'ecran horizontalement
+	private int xPos; // Repere la position du jeu en x
 	
 	//**** CONSTRUCTEUR ****//
 	
@@ -35,6 +36,7 @@ public class Scene extends JPanel {
 		this.xFond1 = -50; // Initialisation du fond qui va déborder de chaque cote de l'ecran
 		this.xFond2 = 750; // Image fait 800 de large donc 800-50=750
 		this.dx = 0; // Initialisation du deplacement horizontal
+		this.xPos = -1; // Initialisation de xPos
 		
 		icoFond = new ImageIcon(getClass().getResource("/images/fondEcran.png"));
 		this.imgFond1 = this.icoFond.getImage(); // Associe notre icoFond a notre imageIcon
@@ -60,22 +62,31 @@ public class Scene extends JPanel {
 	
 	public int getDx() {return dx;} // Accede a la valeur de dx
 	
+	public int getxPos() {return xPos;} // Accede a la valeur de xPos
 	
+	public int getxFond1() {return xFond1;} // Accede a la valeur de xFond1
+	
+	public int getxFond2() {return xFond2;} // Accede a la valeur de xFond2
 	
 	//**** SETTERS ****//
 	
 	public void setDx(int dx) {this.dx = dx;} // Modifie la valeur de dx
 	
+	public void setxPos(int xPos) {this.xPos = xPos;} // Modifie la valeur de xPos
 	
+	public void setxFond1(int xFond1) {this.xFond1 = xFond1;} // Modifie la valeur de xFond1
+	
+	public void setxFond2(int xFond2) {this.xFond2 = xFond2;} // Modifie la valeur de xFond2
 	
 	//**** METHODES ****//
 	
 	public void deplacementFond(){
 		
-		
-		this.xFond1 = this.xFond1 - this.dx; // Mets à jour la position du fond	
-		this.xFond2 = this.xFond2 - this.dx; // Deplace fond2 en meme temps que fond1
-	
+		if(this.xPos >= 0) {
+			this.xPos = this.xPos + this.dx;
+			this.xFond1 = this.xFond1 - this.dx; // Mets à jour la position du fond	
+			this.xFond2 = this.xFond2 - this.dx; // Deplace fond2 en meme temps que fond1
+		}
 		if(this.xFond1 == -800) {
 			this.xFond1 = 800; // Quand xFond1 est à -800 il faut mettre a la suite une autre image
 		}else if(this.xFond2 == -800) {
@@ -99,8 +110,8 @@ public class Scene extends JPanel {
 		g2.drawImage(this.imgFond2, this.xFond2, 0, null); // Dessin de l'image de fond2, 750 en X, 0 en Y, 
 
 		g2.drawImage(imgMario, 400, 245, null); // Dessin de mario qui sera placé en dessous en premier, 300 c'est le milieu de l'ecran, 245 c'est la hauteur de mario
-		g2.drawImage(imgChateau1, 10, 95, null); // Dessin du Chateau en x et y
-		g2.drawImage(imgDepart, 220, 234, null); // Dessin du Depart en x et y
+		g2.drawImage(imgChateau1, 10 - this.xPos, 95, null); // Dessin du Chateau en x avec une contrainte a gauche et y
+		g2.drawImage(imgDepart, 220 - this.xPos, 234, null); // Dessin du Depart en x avec une contrainte a gauche et y
 	}
 
 }
