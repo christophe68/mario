@@ -12,11 +12,13 @@ public class Scene extends JPanel {
 	
 	private ImageIcon icoFond; // Stockage de l'image de fond
 	private Image imgFond1;
+	private Image imgFond2;
 	
 	private ImageIcon icoMario; // Stockage de l'image de Mario code provisoire
 	private Image imgMario; //code provisoire
 	
 	private int xFond1; // Abcisse coin superieur gauche de notre fenetre
+	private int xFond2;
 	private int dx; // Deplace l'ecran horizontalement
 	
 	//**** CONSTRUCTEUR ****//
@@ -26,10 +28,12 @@ public class Scene extends JPanel {
 		super();
 		
 		this.xFond1 = -50; // Initialisation du fond qui va déborder de chaque cote de l'ecran
+		this.xFond2 = 750; // Image fait 800 de large donc 800-50=750
 		this.dx = 0; // Initialisation du deplacement horizontal
 		
 		icoFond = new ImageIcon(getClass().getResource("/images/fondEcran.png"));
 		this.imgFond1 = this.icoFond.getImage(); // Associe notre icoFond a notre imageIcon
+		this.imgFond2 = this.icoFond.getImage(); // Associe notre icoFond a notre imageIcon
 		icoMario = new ImageIcon(getClass().getResource("/images/marioMarcheDroite.png"));
 		this.imgMario = this.icoMario.getImage(); // Associe notre icoMario à notre imageIcon 
 		
@@ -58,7 +62,10 @@ public class Scene extends JPanel {
 	
 	public void deplacementFond(){
 		
+		
+		
 		this.xFond1 = this.xFond1 - this.dx; // Mets à jour la position du fond	
+		this.xFond2 = this.xFond2 - this.dx; // Deplace fond2 en meme temps que fond1
 	}
 	
 
@@ -70,6 +77,8 @@ public class Scene extends JPanel {
 		this.deplacementFond(); // Recalcule la position du fond
 		
 		g2.drawImage(this.imgFond1, this.xFond1, 0, null); // Dessin de l'image de fond, -50 en X, 0 en Y, 
+		g2.drawImage(this.imgFond2, this.xFond2, 0, null); // Dessin de l'image de fond2, 750 en X, 0 en Y, 
+
 		g2.drawImage(imgMario, 400, 245, null); // Dessin de mario qui sera placé en dessous en premier, 300 c'est le milieu de l'ecran, 245 c'est la hauteur de mario
 	}
 
