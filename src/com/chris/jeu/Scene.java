@@ -17,27 +17,57 @@ public class Scene extends JPanel {
 	private Image imgMario; //code provisoire
 	
 	private int xFond1; // Abcisse coin superieur gauche de notre fenetre
+	private int dx; // Deplace l'ecran horizontalement
 	
 	//**** CONSTRUCTEUR ****//
+	
 	public Scene() {
 		
 		super();
 		
 		this.xFond1 = -50; // Initialisation du fond qui va déborder de chaque cote de l'ecran
+		this.dx = 0; // Initialisation du deplacement horizontal
 		
 		icoFond = new ImageIcon(getClass().getResource("/images/fondEcran.png"));
 		this.imgFond1 = this.icoFond.getImage(); // Associe notre icoFond a notre imageIcon
 		icoMario = new ImageIcon(getClass().getResource("/images/marioMarcheDroite.png"));
 		this.imgMario = this.icoMario.getImage(); // Associe notre icoMario à notre imageIcon 
 		
+		this.setFocusable(true); // Ecoute l'ecran
+		this.requestFocusInWindow(); // Recupere le focus
+		this.addKeyListener(new Clavier()); // Permets d'ecouter la class clavier par rapport a la class scene
+		
+		Thread chronoEcran = new Thread(new Chrono()); // construit le fond avec la boucle
+		chronoEcran.start(); // Demarrage de la boucle
+		
 	}
+	
+	//**** GETTERS ****//
+	
+	public int getDx() {return dx;} // Accede a la valeur de dx
+	
+	
+	
+	//**** SETTERS ****//
+	
+	public void setDx(int dx) {this.dx = dx;} // Modifie la valeur de dx
+	
 	
 	
 	//**** METHODES ****//
+	
+	public void deplacementFond(){
+		
+		this.xFond1 = this.xFond1 - this.dx; // Mets à jour la position du fond	
+	}
+	
+
 	public void paintComponent(Graphics g) {
 		
 		super.paintComponent(g); // Methode heritee 
 		Graphics g2 = (Graphics2D)g; // Meilleur rendu cote graphique
+		
+		this.deplacementFond(); // Recalcule la position du fond
 		
 		g2.drawImage(this.imgFond1, this.xFond1, 0, null); // Dessin de l'image de fond, -50 en X, 0 en Y, 
 		g2.drawImage(imgMario, 400, 245, null); // Dessin de mario qui sera placé en dessous en premier, 300 c'est le milieu de l'ecran, 245 c'est la hauteur de mario
